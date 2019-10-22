@@ -38,12 +38,12 @@ class HomeController extends Controller
         ]);
     }
     /**
-     * @Route("/liste_des_biens", name="biens")
+     * @Route("/biens", name="biens")
      */
         
     public function biens()
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/biens.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
