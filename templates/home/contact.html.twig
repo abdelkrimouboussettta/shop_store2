@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello contact HomeController!{% endblock %}
+
+{% block title %}Hello contact majeur{% endblock %}
 
 {% block body %}
 <style>
@@ -10,7 +11,12 @@
 
 <div class="example-wrapper">
     
-
+{% if age>18 %}
+    <h2>la personne est majeur</h2>
+{% else %}
+    <h2> la personne est mineur</h2>
+{% endif %}
+>
 >
 </div>
 {% endblock %}
