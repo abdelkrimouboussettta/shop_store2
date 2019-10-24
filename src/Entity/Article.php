@@ -34,7 +34,7 @@ class Article
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_At;
+    private $createdAt;
     
     /**
      * @ORM\Column(type="text")
@@ -85,21 +85,21 @@ class Article
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_At;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_At): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_At = $created_At;
+        $this->createdAt = $createdAt;
 
         return $this;
 }
-    public function getresume(): ?string
+    public function getResume(): ?string
     {
         return $this->resume;
     }
 
-    public function setresume(string $resume): self
+    public function setResume(string $resume): self
     {
         $this->resume = $resume;
 
