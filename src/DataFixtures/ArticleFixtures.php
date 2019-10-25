@@ -14,7 +14,7 @@ class ArticleFixtures extends Fixture
         // $manager->persist($product);
    
     
-for ($i=1;$i<=10;$i++)
+for ($i=1;$i<=100;$i++)
     {
         $article = new Article();
         $article ->setTitle("titre")
