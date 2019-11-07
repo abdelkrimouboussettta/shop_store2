@@ -22,7 +22,7 @@ class BlogController extends AbstractController
             ]);
     }
     /**
-     * @Route("/show\{id}", name="show")
+     * @Route("/show/{id}", name="show")
      */
     public function show($id)
     {
