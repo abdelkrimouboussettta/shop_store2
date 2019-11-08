@@ -18,30 +18,30 @@ class ArticleFixtures extends Fixture
 
         $faker = \Faker\Factory::create();
 
-    for ($k=1;$k<10;$k++)
+    for ($k=1;$k<6;$k++)
     {
         $categorie =new Categorie();
             $categorie->setTitre($faker->sentence())
-                      ->setresume("resume");
+                                  ->setresume($faker->paragraph());
 
                 $manager->persist($categorie);
-        for ($i=1;$i<=10;$i++)
+        for ($i=1;$i<=31;$i++)
         {           
             $article = new Article();
             $article ->setTitle($faker->sentence())
                      ->setContent("content")
                      ->setimage($faker->ImageURl())
                      ->setCreatedAt(new \DateTime())
-                     ->setResume("resume")
+                     ->setResume($faker->paragraph($nbSentences=5,$variableNbSentences=true))
                      ->setCategorie($categorie);
 
              $manager->persist($article);
 
-            for ($j=1;$j<5;$j++)
+            for ($j=1;$j<11;$j++)
             {
             $commentaires=new Commentaires();
             $commentaires->setAuteur($faker->name())
-                         ->setCommentaire("commentaire")
+                ->setCommentaire($faker->paragraph($nbSentences=5,$variableNbSentences=true))
                          ->setCreatedAt(new \DateTime())
                          ->setArticle($article);
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Biens!{% endblock %}
+{% block title %}Liste des article!{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
 
        <article>
             <h2>{{article.title}}</h2>
-            <div class = "metadata"> Ecrit le  21/10/2019 / Categorie: </div>
+            <div class = "metadata"> Ecrit le  21/10/2019 / {{article.categorie.titre}} </div>
              <div class = "content">
                 <img src="https://via.placeholder.com/300x200" alt="">
                  <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer </p>
@@ -18,4 +18,7 @@
             </div>          
        </article>   
 {% endfor %}
+<div class="navigation">
+    {{ knp_pagination_render(articles) }}
+</div>
 {% endblock %}
