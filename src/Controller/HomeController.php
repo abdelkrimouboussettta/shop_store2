@@ -60,7 +60,7 @@ class HomeController extends Controller
         ]);
     }
 /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin/admin", name="admin")
      */
         
     public function admin()
