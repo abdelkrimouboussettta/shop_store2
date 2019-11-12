@@ -21,7 +21,7 @@ class BlogController extends AbstractController
         $articles=$paginator->paginate(
             $repo->findAll(),
             $request->query->getInt('page', 1), /*page number*/
-             5 /*limit per page*/     );
+             9 /*limit per page*/     );
             
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
