@@ -7,8 +7,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Entity\Commentaire;
 use App\Entity\Categorie;
+use App\Entity\Utilisateur;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class BlogController extends AbstractController
 {
@@ -42,24 +44,35 @@ class BlogController extends AbstractController
             ]);
         }
     /**
-     * @Route("/article", name="article")
+     * @Route("/utilisateur", name="utilisateur")
      */
         
-    public function article()
+    public function utilisateur(Request $request, ObjectManager $manager)
     {
-        return $this->render('blog/article.html.twig', [
-            'controller_name' => 'BlogController',
-        ]);
-    }
-    /**
-     * @Route("/categorie", name="categorie")
-     */
-        
-    public function categorie()
-    {
-        return $this->render('blog/categorie.html.twig', [
-            'controller_name' => 'BlogController',
-        ]);
+        $utilisateur =new Utilisateur();
+        $form = $this->createFormBuilder($utilisateur)
+        ->add('nom')
+        ->add('prenom')
+        ->add('date_naissance')
+        ->add('mail')
+        ->add('login')
+        ->add('mot_passe')
+        ->add('date_location')
+        ->add('duree')
+        ->add('fin_location')
+        ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($utilisateur); 
+        $manager->flush();
         }
+
+
+        return $this->render('blog/utilisateur.html.twig', [
+            'formCreatUtilisateur' => $form->createView()
+        ]);
+        
+    }
     
 }
