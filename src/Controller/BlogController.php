@@ -74,5 +74,37 @@ class BlogController extends AbstractController
         ]);
         
     }
+    /**
+     * @Route("/article", name="article")
+     */
+        
+    public function article(Request $request, ObjectManager $manager)
+    {
+        $article =new Article();
+        $form = $this->createFormBuilder($article)
+        ->add('title')
+        ->add('content')
+        ->add('image')
+        ->add('createdAt')
+        ->add('resume')
+        ->add('categorie')
+
+        ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($article); 
+        $manager->flush();
+        }
+
+
+        return $this->render('blog/article.html.twig', [
+            'formCreatUtilisateur' => $form->createView()
+        ]);
+        
+    }
     
 }
+
+    
+
