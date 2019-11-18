@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
-use App\Entity\Commentaire;
+use App\Entity\Commentaires;
 use App\Entity\Categorie;
 use App\Entity\Utilisateur;
 use Knp\Component\Pager\PaginatorInterface;
@@ -77,34 +77,104 @@ class BlogController extends AbstractController
     /**
      * @Route("/article", name="article")
      */
-        
+
     public function article(Request $request, ObjectManager $manager)
     {
-        $article =new Article();
-        $form = $this->createFormBuilder($article)
+        $art =new Article();
+        $form = $this->createFormBuilder($art)
         ->add('title')
         ->add('content')
         ->add('image')
         ->add('createdAt')
         ->add('resume')
-        ->add('categorie')
+        //->add('categorie')
 
         ->getForm();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-        $manager->persist($article); 
+        $manager->persist($art); 
         $manager->flush();
         }
 
 
         return $this->render('blog/article.html.twig', [
-            'formCreatUtilisateur' => $form->createView()
+            'formArticle' => $form->createView()
+        ]);
+
+    }
+
+    /**
+     * @Route("/categorie", name="categorie")
+     */
+
+    public function categorie(Request $request, ObjectManager $manager)
+    {
+        $categorie =new Categorie();
+        $form = $this->createFormBuilder($categorie)
+        ->add('titre')
+        ->add('resume')
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($categorie); 
+        $manager->flush();
+        }
+
+
+        return $this->render('blog/categorie.html.twig', [
+            'formCategorie' => $form->createView()
+        ]);        
+        }
+
+        /**
+     * @Route("/commentaires", name="commentaires")
+     */
+    public function commentaires(Request $request, ObjectManager $manager)
+    {
+        $commentaires =new Commentaires();
+        $form = $this->createFormBuilder($commentaires)
+        ->add('auteur')
+        ->add('commentaire')
+        ->add('createdAt')
+        //->add('article')
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($commentaires); 
+        $manager->flush();
+        }
+
+
+        return $this->render('blog/commentaires.html.twig', [
+            'formCommentaires' => $form->createView()
         ]);
         
-    }
+}
     
 }
+
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+
 
     
 

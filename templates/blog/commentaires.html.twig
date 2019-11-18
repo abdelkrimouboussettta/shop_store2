@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}                
+{% form_theme formCommentaires 'bootstrap_4_layout.html.twig' %}
+
+
+
+
+{% block body %}
+
+<div> 
+{{ form_start(formCommentaires) }}
+{{ form_widget(formCommentaires.auteur,{ 'attr':{'placeholder': "auteur du commentaire"}}) }}
+{{ form_widget(formCommentaires.commentaire) }}
+{{ form_widget(formCommentaires.createdAt) }}
+
+{{ form_end(formCommentaires) }}
+
+
+</div>
+{% endblock %}
+
+

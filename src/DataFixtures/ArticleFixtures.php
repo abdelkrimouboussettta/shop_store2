@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Article;
-use App\Entity\CATEGORIE;
+            use App\Entity\CATEGORIE;
 
 use App\Entity\Commentaires;
 

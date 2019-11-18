@@ -1,1 +1,17 @@
-            
+{% extends 'base.html.twig' %}            
+
+{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+{{ form_start(formArticle) }}
+{{ form_widget(formArticle.title) }}
+{{ form_widget(formArticle.content) }}
+{{ form_widget(formArticle.image) }}
+{{ form_widget(formArticle.createdAt) }}
+{{ form_widget(formArticle.resume) }}
+{{ form_end(formArticle) }}
+
+{% endblock %}
+
+
