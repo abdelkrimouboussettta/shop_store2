@@ -22,7 +22,7 @@ class ArticleFixtures extends Fixture
     {
         $categorie =new Categorie();
             $categorie->setTitre($faker->sentence())
-                                  ->setresume($faker->paragraph());
+            ->setResume($faker->paragraph($nbSentences=5,$variableNbSentences=true));
 
                 $manager->persist($categorie);
         for ($i=1;$i<=31;$i++)

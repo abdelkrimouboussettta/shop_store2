@@ -44,7 +44,7 @@ class AdministrateurController extends AbstractController
     }
 
     /**
-     * @Route("/administratuer/form/article", name="admin.form.article")
+     * @Route("/administrateur/form/article", name="admin.form.article")
      */
     public function articleForm(Request $request, ObjectManager $manager)
     {
@@ -66,5 +66,42 @@ class AdministrateurController extends AbstractController
             'formArticle' => $form->createView()
         ]);
     }
+    /**
+     * @Route("/administrateur/categorie", name="admin.categorie")
+     */
+    public function categorie(PaginatorInterface $paginator, Request $request)
+    {
+        $repos=$this->getDoctrine() ->getRepository(Categorie::class);
+        $categories=$paginator->paginate(
+            $repos->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             9 /*limit per page*/     );
+            
+        return $this->render('administrateur/categorie.html.twig', [
+            'controller_name' => 'AdministrateurController',
+        'categories'=>$categories
+            ]);
+    }
+
+    /**
+     * @Route("/administrateur/form/categorie", name="admin.form.categorie")
+     */
+    public function categorieForm(Request $request, ObjectManager $manager)
+    {
+        $cat =new Categorie();
+        $form = $this->createFormBuilder($cat)
+        ->add('titre')
+        ->add('resume')
+        ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($cat); 
+        $manager->flush();
+        }
+        return $this->render('administrateur/categorie.html.twig', [
+            'formCategorie' => $form->createView()
+        ]);
+    }
     
 }
+    

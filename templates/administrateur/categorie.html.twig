@@ -1,0 +1,31 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}Liste des categorie{% endblock %}
+
+{% block body %}
+     
+
+        
+
+        {% for categorie in categories %}
+
+            <div>
+
+                
+                
+                    <h2>{{categorie.titre}}</h2>
+        <h2>{{categorie.resume}}</h2>
+                        
+                
+                
+            </div>
+
+        {% endfor %}
+                        
+        
+        </div>
+
+<div class="navigation">
+    {{ knp_pagination_render(categories) }}
+</div>
+{% endblock %}
