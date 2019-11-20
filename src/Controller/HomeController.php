@@ -49,16 +49,7 @@ class HomeController extends Controller
 'age' => '30',
             ]);
     }
-    /**
-     * @Route("/biens", name="biens")
-     */
-        
-    public function biens()
-    {
-        return $this->render('home/biens.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
+
 /**
      * @Route("/admin/admin", name="admin")
      */

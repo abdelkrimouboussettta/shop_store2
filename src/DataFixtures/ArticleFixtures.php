@@ -28,7 +28,7 @@ class ArticleFixtures extends Fixture
         for ($i=1;$i<=31;$i++)
         {           
             $article = new Article();
-            $article ->setTitle($faker->sentence())
+            $article ->setTitle($faker->sentence($nbWords = 6))
                      ->setContent("content")
                      ->setimage($faker->ImageURl())
                      ->setCreatedAt(new \DateTime())
