@@ -48,8 +48,8 @@ class AdministrateurController extends AbstractController
      */
     public function articleForm(Request $request, ObjectManager $manager)
     {
-        $art =new Article();
-        $form = $this->createFormBuilder($art)
+        $article =new Article();
+        $form = $this->createFormBuilder($article)
         ->add('title')
         ->add('content')
         ->add('image')
@@ -59,10 +59,10 @@ class AdministrateurController extends AbstractController
         ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-        $manager->persist($art); 
+        $manager->persist($article); 
         $manager->flush();
         }
-        return $this->render('administrateur/article.html.twig', [
+        return $this->render('administrateur/artiform.html.twig', [
             'formArticle' => $form->createView()
         ]);
     }
