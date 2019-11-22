@@ -62,7 +62,7 @@ class AdministrateurController extends AbstractController
         $manager->persist($article); 
         $manager->flush();
         }
-        return $this->render('administrateur/artiform.html.twig', [
+        return $this->render('administrateur/artform.html.twig', [
             'formArticle' => $form->createView()
         ]);
     }
