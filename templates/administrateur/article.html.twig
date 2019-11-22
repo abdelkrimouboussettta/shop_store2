@@ -4,9 +4,9 @@
 
 {% block body %}
      
-
-        
-
+<div class="jumbotron">
+<a href="{{path('admin.form.article')}}" class="btn btn-primary"> nouvel article </a>                                      
+</div>
         {% for article in articles %}
 
             
@@ -16,7 +16,7 @@
                     <h2>{{article.title}}</h2>
 
                     <div class = "metadata"> Ecrit le  21/10/2019 / {{article.categorie.titre}} </div>
-<a href="{{path('show',{'id':article.id})}} " class="btn btn-primary"> Lire la suite </a>                              
+<a href="{{path('show',{'id':article.id})}} " class="btn btn-primary"> modifier </a>                              
                     
                         
                 </article> 
