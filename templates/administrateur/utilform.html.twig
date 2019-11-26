@@ -1,0 +1,28 @@
+
+{% extends 'baseadmin.html.twig' %}
+{% form_theme formUtilisateur 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+{{ form_start(formUtilisateur) }}
+{{ form_widget(formUtilisateur.nom) }}
+{{ form_widget(formUtilisateur.prenom) }}
+{{ form_widget(formUtilisateur.date_naissance) }}
+{{ form_widget(formUtilisateur.mail) }}
+{{ form_widget(formUtilisateur.login) }}
+{{ form_widget(formUtilisateur.mot_passe) }}
+{{ form_widget(formUtilisateur.date_location) }}
+{{ form_widget(formUtilisateur.duree) }}
+{{ form_widget(formUtilisateur.fin_location) }}
+<button type="submit" class="btn btn-success">envoyer</button>
+{{ form_end(formUtilisateur) }}
+
+>
+</div>
+{% endblock %}
+
+

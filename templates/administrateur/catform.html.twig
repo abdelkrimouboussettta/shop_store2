@@ -1,0 +1,16 @@
+
+{% extends 'baseadmin.html.twig' %}   
+         
+{% form_theme formCategorie 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+{{ form_start(formCategorie) }}
+{{ form_widget(formCategorie) }}
+
+
+
+<button type="submit" class="btn btn-success">envoyer</button>
+{{ form_end(formCategorie) }}
+
+{% endblock %}

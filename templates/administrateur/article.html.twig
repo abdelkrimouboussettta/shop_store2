@@ -7,28 +7,29 @@
 <div class="jumbotron">
 <a href="{{path('admin.form.article')}}" class="btn btn-primary"> nouvel article </a>                                      
 </div>
-        {% for article in articles %}
+    {% for article in articles %}
 
             
 
-                <article>
+    <article>
                     
-                    <h2>{{article.title}}</h2>
+    <h2>{{article.title}}</h2>
 
-                    <div class = "metadata"> Ecrit le  21/10/2019 / {{article.categorie.titre}} </div>
-<a href="{{path('show',{'id':article.id})}} " class="btn btn-primary"> modifier </a>                              
+    <div class = "metadata"> Ecrit le  21/10/2019 / {{article.categorie.titre}} 
+    </div>
+    <a href="{{path('admin.article.modif', {'id':article.id})}}" class="btn btn-primary"> modifier </a>                              
                     
                         
-                </article> 
+    </article> 
                 
-            </div>
+    </div>
 
-        {% endfor %}
+    {% endfor %}
                         
         
-        </div>
+    </div>
 
 <div class="navigation">
     {{ knp_pagination_render(articles) }}
-</div>
+ </div>
 {% endblock %}

@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-
 use App\Entity\Article;
-use App\Entity\Commentaires;
 use App\Entity\Categorie;
-use App\Entity\Utilisateur;
 
+use App\Entity\Utilisateur;
+use App\Entity\Commentaires;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class AdministrateurController extends AbstractController
@@ -55,7 +56,11 @@ class AdministrateurController extends AbstractController
         ->add('image')
         ->add('createdAt')
         ->add('resume')
-        //->add('categorie')
+        ->add('categorie', EntityType::class, [
+            'class' => Categorie::class,
+            "choice_label" => 'titre'
+    ])
+         
         ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,6 +71,42 @@ class AdministrateurController extends AbstractController
             'formArticle' => $form->createView()
         ]);
     }
+
+
+    /**
+    * @Route("/administrateur/article/{id}", name="admin.article.modif")
+    */
+    
+    public function modifArticle(Article $article, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createFormBuilder($article)
+        ->add('title')
+        ->add('content')
+        ->add('image')
+        ->add('createdAt')
+        ->add('resume')
+        ->add('categorie', EntityType::class, [
+            'class' => Categorie::class,
+            "choice_label" => 'titre'
+    ])
+         
+        ->getForm();
+        $form->handleRequest($request);
+                
+        if($form->isSubMitted() && $form->isValid()){
+            $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin.article', 
+            ['id'=>$article->getId()]); // Redirection vers l'article
+        }
+        return $this->render('administrateur/artmodif.html.twig', [
+               'formModifArt' => $form->createView()
+               ]);
+    }
+
+
+
     /**
      * @Route("/administrateur/categorie", name="admin.categorie")
      */
@@ -88,20 +129,71 @@ class AdministrateurController extends AbstractController
      */
     public function categorieForm(Request $request, ObjectManager $manager)
     {
-        $cat =new Categorie();
-        $form = $this->createFormBuilder($cat)
-        ->add('titre')
-        ->add('resume')
-        ->getForm();
-        $form->handleRequest($request);
+        $categorie = new Categorie();
+        $form = $this->createFormBuilder($categorie)
+                    ->add('titre')
+                    ->add('resume')
+                    ->getForm();
+
+                    $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-        $manager->persist($cat); 
-        $manager->flush();
+                $manager->persist($categorie); 
+                $manager->flush();
         }
-        return $this->render('administrateur/categorie.html.twig', [
+        return $this->render('administrateur/catform.html.twig', [
             'formCategorie' => $form->createView()
         ]);
     }
+
+ /**
+     * @Route("/administrateur/utilisateur", name="admin.utilisateur")
+     */
+    public function utilisateur(PaginatorInterface $paginator, Request $request)
+    {
+        $repo=$this->getDoctrine() ->getRepository(Utilisateur::class);
+        $utilisateurs=$paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             9 /*limit per page*/     );
+            
+        return $this->render('administrateur/utilisateur.html.twig', [
+            'controller_name' => 'AdministrateurController',
+        'utilisateurs'=>$utilisateurs
+            ]);
+    }
+
+    /**
+     * @Route("/administrateur/form/utilisateur", name="admin.form.utilisateur")
+     */
+    public function utilisateurForm(Request $request, ObjectManager $manager)
+    {
+        $utilisateur =new Utilisateur();
+        $form = $this->createFormBuilder($utilisateur)
+        ->add('nom')
+        ->add('prenom')
+        ->add('date_naissance')
+        ->add('mail')
+        ->add('login')
+        ->add('mot_passe')         
+        ->add('date_location')
+        ->add('duree')
+        ->add('fin_location')
+        ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($utilisateur); 
+        $manager->flush();
+        }
+        return $this->render('administrateur/utilform.html.twig', [
+            'formUtilisateur' => $form->createView()
+        ]);
+    }
+    
+    
+
+    
+
     
 }
     

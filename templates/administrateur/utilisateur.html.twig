@@ -1,29 +1,36 @@
-{% form_theme formCreatUtilisateur 'bootstrap_4_layout.html.twig' %}
-{% extends 'base.html.twig' %}
+{% extends 'baseadmin.html.twig' %}
 
-
+{% block title %}Liste des utilisateur{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-{{ form_start(formCreatUtilisateur) }}
-{{ form_widget(formCreatUtilisateur.nom) }}
-{{ form_widget(formCreatUtilisateur.prenom) }}
-{{ form_widget(formCreatUtilisateur.date_naissance) }}
-{{ form_widget(formCreatUtilisateur.mail) }}
-{{ form_widget(formCreatUtilisateur.login) }}
-{{ form_widget(formCreatUtilisateur.mot_passe) }}
-{{ form_widget(formCreatUtilisateur.date_location) }}
-{{ form_widget(formCreatUtilisateur.duree) }}
-{{ form_widget(formCreatUtilisateur.fin_location) }}
-{{ form_end(formCreatUtilisateur) }}
-
->
+     
+<div class="jumbotron">
+<a href="{{path('admin.form.utilisateur')}}" class="btn btn-primary"> nouveau utilisateur </a>                                      
 </div>
+    {% for utilisateur in utilisateurs %}
+
+            
+
+    <article>
+                    
+    <h2>{{utilisateur.nom}}</h2>
+    <h2>{{utilisateur.prenom}}</h2>
+    <h2>{{utilisateur.date_naissance}}</h2>
+
+
+    <a href="{{path('admin.utilisateur.modif', {'id':utilisateur.id})}}" class="btn btn-primary"> modifier </a>                              
+                    
+                        
+    </article> 
+                
+    </div>
+
+    {% endfor %}
+                        
+        
+    </div>
+
+<div class="navigation">
+    {{ knp_pagination_render(utilisateurs) }}
+ </div>
 {% endblock %}
-
-

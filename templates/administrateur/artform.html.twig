@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}   
+{% extends 'baseadmin.html.twig' %}   
          
 {% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
 
@@ -10,6 +10,8 @@
 {{ form_widget(formArticle.image) }}
 {{ form_widget(formArticle.createdAt) }}
 {{ form_widget(formArticle.resume) }}
+{{ form_widget(formArticle.categorie) }}
+
 <button type="submit" class="btn btn-success">envoyer</button>
 {{ form_end(formArticle) }}
 

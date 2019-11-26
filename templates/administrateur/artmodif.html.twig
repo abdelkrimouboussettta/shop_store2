@@ -1,0 +1,22 @@
+{% extends 'baseadmin.html.twig' %}   
+         
+{% form_theme formModifArt 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+<div class = "jumbotron">
+ <article>
+    <h2> MODIFICATION DE MON ARTICLE </h2>
+            
+       </article>      
+</div>
+
+
+{{ form_start(formModifArt) }}
+
+{{ form_widget(formModifArt) }}
+<button type="submit" class="btn btn-success">envoyer</button>
+{{ form_end(formModifArt) }}
+
+{% endblock %}
+
+
