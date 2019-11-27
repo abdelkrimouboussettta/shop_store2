@@ -252,6 +252,52 @@ class AdministrateurController extends AbstractController
     
 
     
+    /**
+    * @Route("/administrateur/utilisateur/{id}", name="admin.utilisateur.modif")
+    */
+    
+    public function modifUtilisateur(utilisateur $utilisateur, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createFormBuilder($utilisateur)
+        ->add('nom')
+        ->add('prenom')
+        ->add('date_naissance')
+        ->add('mail')
+        ->add('login')
+        ->add('mot_passe')         
+        ->add('date_location')
+        ->add('duree')
+        ->add('fin_location')
+        ->getForm();
+        $form->handleRequest($request);
+                
+        if($form->isSubMitted() && $form->isValid()){
+        $manager->persist($utilisateur);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin.utilisateur', 
+        ['id'=>$utilisateur->getId()]); 
+        }
+        return $this->render('administrateur/utilmodif.html.twig', [
+        'formModifUtil' => $form->createView()
+        ]);
+    }
+    /**
+    * @Route("/administrateur/utilisateur/{id}/deletutil", name="admin.utilisateur.sup")
+    */
+    
+    public function supUtilisateur($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Categorie::class);
+        $utilisateur = $repo->find($id);
+
+        $Manager->remove($utilisateur);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('admin.utilisateur');
+    }
+    
+    
 
     
 }

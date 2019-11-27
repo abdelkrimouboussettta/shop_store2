@@ -7,26 +7,26 @@
 <div class="jumbotron">
 <a href="{{path('admin.form.utilisateur')}}" class="btn btn-primary"> nouveau utilisateur </a>                                      
 </div>
+<table>
+<tr>
+<th>id</th>
+<th>nom</th>
+<th>prénom</th>
+<th>E-mail</th>
+<th>modifier</th>
+<th>supprimer</th>
+</tr>
+
     {% for utilisateur in utilisateurs %}
-
-            
-
-    <article>
-                    
-    <h2>{{utilisateur.nom}}</h2>
-    <h2>{{utilisateur.prenom}}</h2>
-    
-
-
-    
-                    
-                        
-    </article> 
-                
-    </div>
-
-    {% endfor %}
-                        
+<tr>
+<td>{{utilisateur.nom}}</td>
+<td>{{utilisateur.prenom}}</td>
+<td>{{utilisateur.mail}}</td>
+<td><a href="{{path('admin.utilisateur.modif', {'id':utilisateur.id})}}" class="btn btn-info"> modifier </a></td>                                              
+<td><a href="{{path('admin.utilisateur.sup', {'id':utilisateur.id})}}" class="btn btn-danger"> Supprimer </a></td>                                              
+</tr>            
+{% endfor %}
+</table>                   
         
     </div>
 
