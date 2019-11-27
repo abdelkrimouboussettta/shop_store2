@@ -9,8 +9,6 @@
 </div>
     {% for article in articles %}
 
-            
-
     <article>
                     
     <h2>{{article.title}}</h2>
@@ -18,7 +16,7 @@
     <div class = "metadata"> Ecrit le  21/10/2019 / {{article.categorie.titre}} 
     </div>
     <a href="{{path('admin.article.modif', {'id':article.id})}}" class="btn btn-primary"> modifier </a>                              
-                    
+    <a href="{{path('admin.article.sup', {'id':article.id})}}" class="btn btn-primary"> Supprimer </a>                              
                         
     </article> 
                 

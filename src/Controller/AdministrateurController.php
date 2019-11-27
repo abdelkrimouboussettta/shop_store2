@@ -59,13 +59,15 @@ class AdministrateurController extends AbstractController
         ->add('categorie', EntityType::class, [
             'class' => Categorie::class,
             "choice_label" => 'titre'
-    ])
+      ])
          
         ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
         $manager->persist($article); 
         $manager->flush();
+        return $this->redirectToRoute('admin.article', 
+        ['id'=>$article->getId()]); // Redirection vers
         }
         return $this->render('administrateur/artform.html.twig', [
             'formArticle' => $form->createView()
@@ -104,7 +106,22 @@ class AdministrateurController extends AbstractController
                'formModifArt' => $form->createView()
                ]);
     }
+    /**
+    * @Route("/administrateur/article/{id}/deletart", name="admin.article.sup")
+    */
+    
+    public function supArticle($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $article = $repo->find($id);
 
+        $Manager->remove($article);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('admin.article');
+    }
+    
+ 
 
 
     /**
@@ -138,14 +155,54 @@ class AdministrateurController extends AbstractController
                     $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                $manager->persist($categorie); 
-                $manager->flush();
+        $manager->persist($categorie); 
+        $manager->flush();
+        return $this->redirectToRoute('admin.categorie', 
+        ['id'=>$categorie->getId()]); // Redirection vers
         }
         return $this->render('administrateur/catform.html.twig', [
             'formCategorie' => $form->createView()
         ]);
     }
+    /**
+    * @Route("/administrateur/categorie/{id}", name="admin.categorie.modif")
+    */
+    
+    public function modifCategorie(categorie $categorie, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createFormBuilder($categorie)
+        ->add('titre')
+        ->add('resume')
+        ->getForm();
+        $form->handleRequest($request);
+                
+        if($form->isSubMitted() && $form->isValid()){
+        $manager->persist($categorie);
+        $manager->flush();
 
+        return $this->redirectToRoute('admin.categorie', 
+        ['id'=>$categorie->getId()]); // Redirection vers l'article
+        }
+        return $this->render('administrateur/catmodif.html.twig', [
+        'formModifCat' => $form->createView()
+        ]);
+    }
+    /**
+    * @Route("/administrateur/categorie/{id}/deletcat", name="admin.categorie.sup")
+    */
+    
+    public function supCategorie($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Categorie::class);
+        $categorie = $repo->find($id);
+
+        $Manager->remove($categorie);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('admin.categorie');
+    }
+    
+    
  /**
      * @Route("/administrateur/utilisateur", name="admin.utilisateur")
      */
@@ -184,6 +241,8 @@ class AdministrateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
         $manager->persist($utilisateur); 
         $manager->flush();
+        return $this->redirectToRoute('admin.utilisateur', 
+        ['id'=>$utilisateur->getId()]); 
         }
         return $this->render('administrateur/utilform.html.twig', [
             'formUtilisateur' => $form->createView()

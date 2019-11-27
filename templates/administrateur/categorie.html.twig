@@ -16,7 +16,8 @@
                     <h2>{{categorie.titre}}</h2>
         <h2>{{categorie.resume}}</h2>
                         
-                
+<a href="{{path('admin.categorie.modif', {'id':categorie.id})}}" class="btn btn-primary"> modifier </a>                                              
+<a href="{{path('admin.categorie.sup', {'id':categorie.id})}}" class="btn btn-primary"> Supprimer </a>                                              
                 
             </div>
 

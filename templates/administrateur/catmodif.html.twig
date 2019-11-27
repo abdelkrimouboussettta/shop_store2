@@ -1,21 +1,21 @@
 {% extends 'baseadmin.html.twig' %}   
          
-{% form_theme formCategorie 'bootstrap_4_layout.html.twig' %}
+{% form_theme formModifCat 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
 <div class = "jumbotron">
  <article>
-    <h2> ajouter une   categorie </h2>
+    <h2> MODIFICATION DE ma categorie </h2>
             
        </article>      
 </div>
 
 
-{{ form_start(formCategorie) }}
+{{ form_start(formModifCat) }}
 
-{{ form_widget(formCategorie) }}
+{{ form_widget(formModifCat) }}
 <button type="submit" class="btn btn-success">envoyer</button>
-{{ form_end(formCategorie) }}
+{{ form_end(formModifCat) }}
 
 {% endblock %}
 
