@@ -6,23 +6,24 @@
      
 
 <a href="{{path('admin.form.categorie')}}" class="btn btn-primary"> nouvel categorie </a>                                              
+<table>
+<tr>
+<th>id</th>
+<th>titre</th>
+<th>resume</th>
+</tr>
 
         {% for categorie in categories %}
-
-            <div>
-
-                
-                
-                    <h2>{{categorie.titre}}</h2>
-        <h2>{{categorie.resume}}</h2>
-                        
-<a href="{{path('admin.categorie.modif', {'id':categorie.id})}}" class="btn btn-primary"> modifier </a>                                              
-<a href="{{path('admin.categorie.sup', {'id':categorie.id})}}" class="btn btn-primary"> Supprimer </a>                                              
-                
-            </div>
-
+<tr>
+<td>{{categorie.id}}</td>
+<td>{{categorie.titre}}</td>
+<td>{{categorie.resume}}</td>
+    <td><a href="{{path('admin.categorie.modif', {'id':categorie.id})}}" class="btn btn-info"> modifier </a></td>                                              
+<td><a href="{{path('admin.categorie.sup', {'id':categorie.id})}}" class="btn btn-danger"> Supprimer </a></td>                                              
+                </tr>
+            
         {% endfor %}
-                        
+            </table>            
         
         </div>
 
