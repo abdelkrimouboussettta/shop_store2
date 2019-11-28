@@ -288,7 +288,7 @@ class AdministrateurController extends AbstractController
     
     public function supUtilisateur($id, ObjectManager $Manager, Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Categorie::class);
+        $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateur = $repo->find($id);
 
         $Manager->remove($utilisateur);
