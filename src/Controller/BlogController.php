@@ -11,6 +11,7 @@ use App\Entity\Utilisateur;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class BlogController extends AbstractController
 {
@@ -33,14 +34,41 @@ class BlogController extends AbstractController
     /**
      * @Route("/show/{id}", name="show")
      */
-    public function show($id)
+    public function show($id, Request $request, ObjectManager $manager)
     {
         $repo=$this->getDoctrine() ->getRepository(Article::class);
         $article=$repo->find($id);
 
-        return $this->render('blog/show.html.twig', [
-            'controller_name' => 'BlogController',
-        'article'=>$article
-            ]);
-        }   
-     }
+        /*$repo1=$this->getDoctrine() ->getRepository(Article::class);
+
+        $articles=$repo1->findAll();
+
+        
+        $com =new Commentaires();
+
+        $form = $this->createFormBuilder($com)
+        ->add('auteur')
+        ->add('commentaire')
+        
+        ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if(!$com->getId()) {
+                $com->setCreatedAt(new \DateTime());
+            }
+            $com->setArticle($article);
+            $manager->persist($com);
+            $manager->flush();
+    
+                return $this->redirectToRoute('blog_show',  ['id' => $article->getId()
+                ]);
+        }
+*/
+return $this->render('blog/show.html.twig', [
+    'article'=> $article
+    
+
+    
+]);
+ }
+ }
