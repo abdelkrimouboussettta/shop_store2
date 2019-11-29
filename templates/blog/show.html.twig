@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme formCommentaires 'bootstrap_4_layout.html.twig' %}
 {% block title %}Liste des articles!{% endblock %}
 {% block body %}
 <div class = "jumbotron">
@@ -30,7 +30,15 @@
      </tr>
 {% endfor %}
 </table>
+<div class="example-wrapper">
+{{ form_start(formCommentaires) }}
+{{ form_widget(formCommentaires) }}
+
+<button type="submit" class="btn btn-success">envoyer</button>
+{{ form_end(formCommentaires) }}
+
 </section>
+</div>
 
 </div>
 

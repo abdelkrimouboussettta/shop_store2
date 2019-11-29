@@ -38,11 +38,6 @@ class BlogController extends AbstractController
     {
         $repo=$this->getDoctrine() ->getRepository(Article::class);
         $article=$repo->find($id);
-
-        /*$repo1=$this->getDoctrine() ->getRepository(Article::class);
-
-        $articles=$repo1->findAll();
-
         
         $com =new Commentaires();
 
@@ -60,14 +55,14 @@ class BlogController extends AbstractController
             $manager->persist($com);
             $manager->flush();
     
-                return $this->redirectToRoute('blog_show',  ['id' => $article->getId()
-                ]);
+            
+                
         }
-*/
-return $this->render('blog/show.html.twig', [
-    'article'=> $article
-    
 
+ return $this->render('blog/show.html.twig', [
+    'article'=> $article,
+    'formCommentaires' => $form ->createView()
+    
     
 ]);
  }
