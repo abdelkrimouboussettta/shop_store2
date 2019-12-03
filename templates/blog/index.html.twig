@@ -3,8 +3,7 @@
 {% block title %}Liste des article!{% endblock %}
 
 {% block body %}
-
-            <div class = "jumbotron">
+<div class="jumbotron">
         <div class="container">
         <div class="row">
 {% for article in articles %}
@@ -20,7 +19,7 @@
        </article>   
        </div>
 {% endfor %}
-        </div>
+       </div>
 <div class="navigation">
     {{ knp_pagination_render(articles) }}
 </div>

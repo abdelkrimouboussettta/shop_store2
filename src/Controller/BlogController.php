@@ -66,4 +66,15 @@ class BlogController extends AbstractController
     
 ]);
  }
+ /**
+     * @Route("/contenu", name="contenu")
+     */
+
+    public function contenu()
+    {
+        return $this->render('blog/contenu.html.twig', [
+            'controller_name' => 'BlogController',
+        ]);
+    
  }
+}
