@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdministrateurController extends AbstractController
 {
     /**
-     * @Route("/administrateur", name="administrateur")
+     * @Route("/admin", name="administrateur")
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     /**
-     * @Route("/administrateur/article", name="admin.article")
+     * @Route("/admin/article", name="admin.article")
      */
     public function article(PaginatorInterface $paginator, Request $request)
     {
@@ -45,7 +45,7 @@ class AdministrateurController extends AbstractController
     }
 
     /**
-     * @Route("/administrateur/form/article", name="admin.form.article")
+     * @Route("/admin/form/article", name="admin.form.article")
      */
     public function articleForm(Request $request, ObjectManager $manager)
     {
@@ -76,7 +76,7 @@ class AdministrateurController extends AbstractController
 
 
     /**
-    * @Route("/administrateur/article/{id}", name="admin.article.modif")
+    * @Route("/admin/article/{id}", name="admin.article.modif")
     */
     
     public function modifArticle(Article $article, Request $request, ObjectManager $manager)
@@ -107,7 +107,7 @@ class AdministrateurController extends AbstractController
                ]);
     }
     /**
-    * @Route("/administrateur/article/{id}/deletart", name="admin.article.sup")
+    * @Route("/admin/article/{id}/deletart", name="admin.article.sup")
     */
     
     public function supArticle($id, ObjectManager $Manager, Request $request)
@@ -125,7 +125,7 @@ class AdministrateurController extends AbstractController
 
 
     /**
-     * @Route("/administrateur/categorie", name="admin.categorie")
+     * @Route("/admin/categorie", name="admin.categorie")
      */
     public function categorie(PaginatorInterface $paginator, Request $request)
     {
@@ -142,7 +142,7 @@ class AdministrateurController extends AbstractController
     }
 
     /**
-     * @Route("/administrateur/form/categorie", name="admin.form.categorie")
+     * @Route("/admin/form/categorie", name="admin.form.categorie")
      */
     public function categorieForm(Request $request, ObjectManager $manager)
     {
@@ -165,7 +165,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     /**
-    * @Route("/administrateur/categorie/{id}", name="admin.categorie.modif")
+    * @Route("/admin/categorie/{id}", name="admin.categorie.modif")
     */
     
     public function modifCategorie(categorie $categorie, Request $request, ObjectManager $manager)
@@ -188,7 +188,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     /**
-    * @Route("/administrateur/categorie/{id}/deletcat", name="admin.categorie.sup")
+    * @Route("/admin/categorie/{id}/deletcat", name="admin.categorie.sup")
     */
     
     public function supCategorie($id, ObjectManager $Manager, Request $request)
@@ -204,7 +204,7 @@ class AdministrateurController extends AbstractController
     
     
  /**
-     * @Route("/administrateur/utilisateur", name="admin.utilisateur")
+     * @Route("/admin/utilisateur", name="admin.utilisateur")
      */
     public function utilisateur(PaginatorInterface $paginator, Request $request)
     {
@@ -221,7 +221,7 @@ class AdministrateurController extends AbstractController
     }
 
     /**
-     * @Route("/administrateur/form/utilisateur", name="admin.form.utilisateur")
+     * @Route("/admin/form/utilisateur", name="admin.form.utilisateur")
      */
     public function utilisateurForm(Request $request, ObjectManager $manager)
     {
@@ -253,7 +253,7 @@ class AdministrateurController extends AbstractController
 
     
     /**
-    * @Route("/administrateur/utilisateur/{id}", name="admin.utilisateur.modif")
+    * @Route("/admin/utilisateur/{id}", name="admin.utilisateur.modif")
     */
     
     public function modifUtilisateur(utilisateur $utilisateur, Request $request, ObjectManager $manager)
@@ -283,7 +283,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     /**
-    * @Route("/administrateur/utilisateur/{id}/deletutil", name="admin.utilisateur.sup")
+    * @Route("/admin/utilisateur/{id}/deletutil", name="admin.utilisateur.sup")
     */
     
     public function supUtilisateur($id, ObjectManager $Manager, Request $request)

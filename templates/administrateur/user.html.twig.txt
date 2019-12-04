@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des users{% endblock %}
+
+{% block body %}
+     
+<div class="jumbotron">
+<a href="{{path('user.form')}}" class="btn btn-primary"> nouveau userur </a>                                      
+</div>
+<table>
+<tr>
+<th>id</th>
+<th>nom</th>
+<th>mail</th>
+<th>login</th>
+<th>modifier</th>
+<th>supprimer</th>
+</tr>
+
+    {% for user in users %}
+<tr>
+<td>{{user.id}}</td>
+<td>{{user.nom}}</td>
+<td>{{user.mail<td>
+<td>{{user.login}}</td>
+<td><a href="{{path('user.modif', {'id':user.id})}}" class="btn btn-info"> modifier </a></td>                                              
+<td><a href="{{path('user.sup', {'id':user.id})}}" class="btn btn-danger"> Supprimer </a></td>                                              
+</tr>            
+{% endfor %}
+</table>                   
+        
+    </div>
+
+<div class="navigation">
+    {{ knp_pagination_render(utilisateurs) }}
+ </div>
+{% endblock %}

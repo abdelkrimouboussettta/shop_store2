@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+         
+{% form_theme formModifUser 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+<div class = "jumbotron">
+ 
+    <h2> MODIFICATION des users </h2>
+            
+       
+</div>
+
+{{ form_start(formModifUser) }}
+
+{{ form_widget(formModifUser) }}
+<button type="submit" class="btn btn-success">envoyer</button>
+{{ form_end(formModifUser) }}
+
+{% endblock %}
+
+
