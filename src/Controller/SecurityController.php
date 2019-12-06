@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Controller;
+      
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-
-use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\User;
+ namespace App\Controller;
+ use App\Entity\User;
+ use Knp\Component\Pager\PaginatorInterface;
+ use Symfony\Component\HttpFoundation\Request;
+ 
+ use Symfony\Component\Routing\Annotation\Route;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ //use Doctrine\Common\Persistence\ObjectManager;
+ use Doctrine\ORM\EntityManagerInterface;
 class SecurityController extends AbstractController
 {
     /**
@@ -27,10 +30,11 @@ class SecurityController extends AbstractController
     {
         $repo=$this->getDoctrine() ->getRepository(User::class);
         
-            $user =$repo->findAll();
+            $users =$repo->findAll();
             
         return $this->render('security/user.html.twig', [
-            'controller_name' => 'UserController'
+            'controller_name' => 'UserController',
+            'users' =>$users
 
             ]);
     }
@@ -38,7 +42,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/user/form/user", name="user.form")
      */
-    public function userForm(Request $request, ObjectManager $manager)
+    public function userForm(Request $request, EntityManagerInterface $manager)
     {
         $user =new User();
         $form = $this->createFormBuilder($user)
@@ -51,7 +55,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
         $manager->persist($user); 
         $manager->flush();
-        return $this->redirectToRoute('user', 
+        return $this->redirectToRoute('blog', 
         ['id'=>$user->getId()]); 
         }
         return $this->render('security/userform.html.twig', [
@@ -63,7 +67,7 @@ class SecurityController extends AbstractController
     * @Route("/user/{id}", name="user.modif")
     */
     
-    public function modifUser(user $user, Request $request, ObjectManager $manager)
+    public function modifUser(user $user, Request $request, EntityManagerInterface $manager)
     {
         $form = $this->createFormBuilder($user)
         ->add('nom')
@@ -89,7 +93,7 @@ class SecurityController extends AbstractController
     * @Route("/user/{id}/deletuser", name="user.sup")
     */
     
-    public function supUser($id, ObjectManager $Manager, Request $request)
+    public function supUser($id, EntityManagerInterface $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(User::class);
         $user = $repo->find($id);

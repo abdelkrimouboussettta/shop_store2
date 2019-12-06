@@ -14,7 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: false
+            anonymous: true
             http_basic: true
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
