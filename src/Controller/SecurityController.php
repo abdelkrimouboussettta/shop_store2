@@ -1,113 +1,36 @@
 <?php
 
-      
+namespace App\Controller;
 
- namespace App\Controller;
- use App\Entity\User;
- use Knp\Component\Pager\PaginatorInterface;
- use Symfony\Component\HttpFoundation\Request;
- 
- use Symfony\Component\Routing\Annotation\Route;
- use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- //use Doctrine\Common\Persistence\ObjectManager;
- use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/security", name="security")
+     * @Route("/login", name="app_login")
      */
-    public function index()
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('security/index.html.twig', [
-            'controller_name' => 'SecurityController',
-        ]);
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('target_path');
+        // }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
-     * @Route("/user", name="user")
+     * @Route("/logout", name="app_logout")
      */
-    public function user( )
+    public function logout()
     {
-        $repo=$this->getDoctrine() ->getRepository(User::class);
-        
-            $users =$repo->findAll();
-            
-        return $this->render('security/user.html.twig', [
-            'controller_name' => 'UserController',
-            'users' =>$users
-
-            ]);
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
-
-    /**
-     * @Route("/user/form/user", name="user.form")
-     */
-    public function userForm(Request $request, EntityManagerInterface $manager)
-    {
-        $user =new User();
-        $form = $this->createFormBuilder($user)
-        ->add('nom')
-        ->add('mail')
-        ->add('login')
-        ->add('passe_word')
-        ->getForm();
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-        $manager->persist($user); 
-        $manager->flush();
-        return $this->redirectToRoute('blog', 
-        ['id'=>$user->getId()]); 
-        }
-        return $this->render('security/userform.html.twig', [
-            'formUser' => $form->createView()
-        ]);
-    }
-    
-    /**
-    * @Route("/user/{id}", name="user.modif")
-    */
-    
-    public function modifUser(user $user, Request $request, EntityManagerInterface $manager)
-    {
-        $form = $this->createFormBuilder($user)
-        ->add('nom')
-        ->add('mail')
-        ->add('login')
-        ->add('pass_word')         
-    
-        ->getForm();
-        $form->handleRequest($request);
-                
-        if($form->isSubMitted() && $form->isValid()){
-        $manager->persist($user);
-        $manager->flush();
-
-        return $this->redirectToRoute('user', 
-        ['id'=>$user->getId()]); 
-        }
-        return $this->render('security/usermodif.html.twig', [
-        'formModifUser' => $form->createView()
-        ]);
-    }
-    /**
-    * @Route("/user/{id}/deletuser", name="user.sup")
-    */
-    
-    public function supUser($id, EntityManagerInterface $Manager, Request $request)
-    {
-        $repo = $this->getDoctrine()->getRepository(User::class);
-        $user = $repo->find($id);
-
-        $Manager->remove($user);
-        $Manager->flush();
-        
-        return $this->redirectToRoute('user');
-    }
-    
-    
-
-    
 }
-    
-
-

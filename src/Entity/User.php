@@ -6,12 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -22,9 +25,9 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, max=50, minMessage = "Votre nom doit aoir plus de 2 caractères")            
+     * @Assert\Length(min=3, max=50, minMessage = "Votre username doit aoir plus de 2 caractères")            
      */
-    private $nom;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -41,21 +44,26 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=6, max=20, minMessage = "votre passe word doit avoir plus de 5 caractères")            
      */
-    private $passe_word;
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nom;
+        return $this->username;
     }
 
-    public function setNom(string $nom): self
+    public function setUsername(string $username): self
     {
-        $this->nom = $nom;
+        $this->username = $username;
 
         return $this;
     }
@@ -84,15 +92,79 @@ class User
         return $this;
     }
 
-    public function getPasseWord(): ?string
+    public function getPassword(): ?string
     {
-        return $this->passe_word;
+        return $this->password;
     }
 
-    public function setPasseWord(string $passe_word): self
+    public function setPassWord(string $password): self
     {
-        $this->passe_word = $passe_word;
+        $this->password = $password;
 
         return $this;
     }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+    
+          /**
+           * eraseCredentials
+           * @return void
+           */
+          public function eraseCredentials()
+          {
+              
+          }
+      
+      
+          /**
+           * getSalt
+           *
+           * @return string | null
+           */
+          public function getSalt()
+          {
+              return null;
+      
+          }
+      
+          
+      	/** @see \Serializable::serialize() */
+          public function serialize()
+          {
+              return serialize([
+                  $this->id,
+                  $this->username,
+                  $this->password,
+                  // see section on salt below
+                  // $this->salt,
+              ]);
+          }
+      
+       
+          /**
+           * unserialize
+           * @param  mixed $serialized
+           * @return void
+           */
+          public function unserialize($serialized)
+          {
+              list (
+                  $this->id,
+                  $this->username,
+                  $this->password,
+                  // see section on salt below
+                  // $this->salt
+              ) = unserialize($serialized, ['allowed_classes' => false]);
+          }
 }
+
