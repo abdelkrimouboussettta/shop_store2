@@ -16,7 +16,7 @@
         {% for user in users %}
 <tr>
 <td>{{user.id}}</td>
-<td>{{user.nom}}</td>
+<td>{{user.username}}</td>
 <td>{{user.mail}}</td>
     <td><a href="{{path('user.modif', {'id':user.id})}}" class="btn btn-info"> modifier </a></td>                                              
 <td><a href="{{path('user.sup', {'id':user.id})}}" class="btn btn-danger"> Supprimer </a></td>                                              

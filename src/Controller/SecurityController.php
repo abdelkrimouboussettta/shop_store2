@@ -6,7 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
+ 
+ use Symfony\Component\HttpFoundation\Request;
+ 
 class SecurityController extends AbstractController
 {
     /**
@@ -33,4 +37,30 @@ class SecurityController extends AbstractController
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
+    /**
+     * @Route("/user/form/user", name="user.form")
+     */
+    public function userForm(Request $request, EntityManagerInterface $manager)
+    {
+        $user =new User();
+        $form = $this->createFormBuilder($user)
+        ->add('username')
+        ->add('mail')
+        ->add('login')
+        ->add('password')
+        ->add('roles')
+        ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $manager->persist($user); 
+        $manager->flush();
+        return $this->redirectToRoute('blog', 
+        ['id'=>$user->getId()]); 
+        }
+        return $this->render('security/userform.html.twig', [
+            'formUser' => $form->createView()
+        ]);
+    }
+    
+    
 }
