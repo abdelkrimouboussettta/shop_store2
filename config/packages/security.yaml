@@ -1,12 +1,17 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: 
-            memory:
-                users: 
-                    abdelkrim:
-                        password: abdelkrim
-                        roles: ROLE_ADMIN
+        #in_memory: 
+            #memory:
+                #users: 
+                    #abdelkrim:
+                        #password: abdelkrim
+                        #roles: ROLE_ADMIN
+        in_database:
+            entity:
+                class: App\Entity\User
+                property: mail
+    
 
     firewalls:
         dev:
@@ -37,3 +42,40 @@ security:
         Symfony\Component\Security\Core\User\User: plaintext
 
 
+        main:
+            pattern: ^/
+            anonymous: ~
+        #    anonymous: true
+            provider: in_database
+        #    http_basic : true
+
+            logout:
+                path: admin.logout
+                target: accueil
+
+            form_login:
+                check_path: admin.login
+                login_path: admin.login #chemin de login
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: '^/admin', roles : ROLE_ADMIN }
+        - { path: ^/login, roles : IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /_wdt/.*, roles : IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/profile, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        # - { path: ^/profile, roles: ROLE_USER }
+        
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User: plaintext
+        App\Entity\User:
+            algorithm: sha512
+            cost: 12 
