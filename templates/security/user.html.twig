@@ -11,6 +11,7 @@
 <th>id</th>
 <th>nom</th>
 <th>mail</th>
+<th>mot de passe</th>
 </tr>
 
         {% for user in users %}
@@ -18,6 +19,7 @@
 <td>{{user.id}}</td>
 <td>{{user.username}}</td>
 <td>{{user.mail}}</td>
+<td>{{user.password}}</td>
     <td><a href="{{path('user.modif', {'id':user.id})}}" class="btn btn-info"> modifier </a></td>                                              
 <td><a href="{{path('user.sup', {'id':user.id})}}" class="btn btn-danger"> Supprimer </a></td>                                              
                 </tr>

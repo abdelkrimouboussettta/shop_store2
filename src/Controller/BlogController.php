@@ -17,6 +17,7 @@ class BlogController extends AbstractController
 {
     /**
      * @Route("/blog", name="blog")
+     * @Route("/", name="blog_default")
      */
     public function index(PaginatorInterface $paginator, Request $request)
     {

@@ -54,7 +54,11 @@ class Security2Controller extends AbstractController
         ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-        $manager->persist($user); 
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+
+            $user->setPassword($hash);
+            
+            $manager->persist($user); 
         $manager->flush();
         return $this->redirectToRoute('blog', 
         ['id'=>$user->getId()]); 
