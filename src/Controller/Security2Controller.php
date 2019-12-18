@@ -1,5 +1,7 @@
 <?php
 
+//use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
       
 
  namespace App\Controller;
@@ -42,7 +44,7 @@ class Security2Controller extends AbstractController
     /**
      * @Route("/user/form/user", name="user.form")
      */
-    public function userForm(Request $request, EntityManagerInterface $manager)
+    public function userForm(Request $request, EntityManagerInterface $manager )
     {
         $user =new User();
         $form = $this->createFormBuilder($user)
@@ -54,10 +56,7 @@ class Security2Controller extends AbstractController
         ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
 
-            $user->setPassword($hash);
-            
             $manager->persist($user); 
         $manager->flush();
         return $this->redirectToRoute('blog', 
